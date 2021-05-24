@@ -1,0 +1,11 @@
+.panel-auth {
+    background-color: #333333 !important;
+}
+
+.panel-body {
+    background-color: #ecf0f5 !important;
+}
+
+label{
+	font-family: 'Nunito', sans-serif !important;
+}

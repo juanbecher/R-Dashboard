@@ -1,0 +1,82 @@
+output$nuevosBenef <- renderPlot({
+    result <-
+      Altas[year(Altas$Periodo) >= input$IAnioDesde &
+              year(Altas$Periodo) < input$IAnioHasta,]
+    ggplot(result, aes(
+      x = Periodo,
+      y = TPINDDVAL,
+      fill = mes,
+      group = 1
+    )) + geom_line(color = 'steelblue', size = 3) + scale_x_date(
+      date_breaks = "1 month",
+      date_minor_breaks = "1 week",
+      date_labels = "%B %Y"
+    ) +  theme_minimal() + labs(x = "Periodo",
+                                y = "Cantidad",
+                                subtitle = "Subtitulo") +
+      ggtitle("\n \t Nuevos beneficios \n") + theme(
+        plot.title = element_text(
+          family = "Comic Sans MS",
+          size = rel(2.5),
+          vjust = 2,
+          face = "bold",
+          color = "#68AD62"
+        )
+      ) +
+      theme(axis.title.x = element_text(
+        face = "bold",
+        vjust = -0.5,
+        size = rel(2)
+      )) +
+      theme(axis.title.y = element_text(
+        face = "bold",
+        vjust = 1.5,
+        size = rel(2)
+      )) +  scale_y_continuous(
+        limits = c(100, 800),
+        breaks = c(100, 200, 300, 400, 500, 600, 700, 800)
+      )
+    #stat_smooth(se=F)
+  })
+
+  output$salida <- renderPlot({
+    Altas %>%
+      filter(Altas$Periodo >= input$rango[1],
+             Altas$Periodo <= input$rango[2]) %>%
+      ggplot(aes(x = Periodo, y = TPINDDVAL, fill = mes)) + geom_col() +
+      scale_x_date(
+        date_breaks = "1 month",
+        date_minor_breaks = "1 week",
+        date_labels = "%B %Y"
+      ) +  theme_minimal() +
+      labs(x = "Periodo",
+           y = "Cantidad",
+           subtitle = "Subtitulo") +
+      ggtitle("\n Nuevos beneficios \n") +
+      theme(
+        axis.title.x = element_text(
+          face = "bold",
+          vjust = -0.5,
+          size = rel(2)
+        ),
+        axis.text.x = element_text(size = 12)
+      ) +
+      theme(
+        axis.title.y = element_text(
+          face = "bold",
+          vjust = 1.5,
+          size = rel(2)
+        ),
+        axis.text.y = element_text(size = 12)
+      ) +
+      theme(
+        plot.title = element_text(
+          family = "Comic Sans MS",
+          size = rel(2.5),
+          vjust = 2,
+          face = "bold",
+          color = "#327ABB"
+        )
+      )
+
+  })
